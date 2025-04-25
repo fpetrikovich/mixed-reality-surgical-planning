@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        FRONTEND_PORT: ${FRONTEND_PORT}
+        BACKEND_PORT: ${BACKEND_PORT}
+    ports:
+      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+    depends_on:
+      - backend
+
+# RUN with source .env
+  backend:
+    build:
+      context: ./backend
+      args:
+        BACKEND_PORT: ${BACKEND_PORT}
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    environment:
+      - BACKEND_PORT=${BACKEND_PORT}
+      - FRONTEND_PORT=${FRONTEND_PORT}
