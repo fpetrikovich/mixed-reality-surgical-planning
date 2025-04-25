@@ -10,5 +10,7 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 EXPOSE $BACKEND_PORT
 CMD ["npm", "start"]

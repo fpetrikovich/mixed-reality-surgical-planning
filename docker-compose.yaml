@@ -23,3 +23,4 @@ services:
     environment:
       - BACKEND_PORT=${BACKEND_PORT}
       - FRONTEND_PORT=${FRONTEND_PORT}
+      - ENVIRONMENT=production

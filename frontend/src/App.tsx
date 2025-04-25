@@ -4,12 +4,10 @@ import './App.css';
 
 const apiUrl = `http://localhost:${process.env.REACT_APP_BACKEND_PORT}`;
 
-console.log('API URL:', apiUrl);
-
 function App() {
   useEffect(() => {
     console.log('Fetching data from API...');
-    fetch(`${apiUrl}/api/hello`)
+    fetch(`${apiUrl}/api/users`)
       .then(res => res.json())
       .then(data => console.log(data.message));
   }, []);

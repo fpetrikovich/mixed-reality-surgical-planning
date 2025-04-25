@@ -11,6 +11,7 @@ ARG BACKEND_PORT
 # Set the environment variables
 ENV PORT=$FRONTEND_PORT
 ENV REACT_APP_BACKEND_PORT=$BACKEND_PORT
+ENV NODE_ENV=production
 
 # Copy package files and install dependencies
 COPY package*.json ./
