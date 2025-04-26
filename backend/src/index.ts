@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import userRouter from './routes/users';
+import dicomRouter from './routes/dicom.routes';
+import modelsRouter from './routes/models.routes';
 
-  // Load environment variables from .env file if not in production
+// Load environment variables from .env file if not in production
 if (process.env.ENVIRONMENT !== 'production') {
   console.log('[SERVER] Loading environment variables from parent .env file');
   dotenv.config({ path: '../.env' }); 
@@ -25,7 +26,8 @@ app.use(cors({
 }));
 
 // Routes
-app.use('/api/users', userRouter);
+app.use('/api/dicom', dicomRouter);
+app.use('/api/models', modelsRouter);
 
 app.listen(port, () => {
   console.log(`[SERVER] Listening at http://localhost:${port}`);
