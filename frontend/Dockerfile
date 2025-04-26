@@ -9,23 +9,19 @@ ARG FRONTEND_PORT
 ARG BACKEND_PORT
 
 # Set the environment variables
-ENV PORT=$FRONTEND_PORT
-ENV REACT_APP_BACKEND_PORT=$BACKEND_PORT
-ENV NODE_ENV=production
+ENV VITE_FRONTEND_PORT=$FRONTEND_PORT
+ENV VITE_BACKEND_PORT=$BACKEND_PORT
 
 # Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the files
-COPY public/ ./public
-COPY src/ ./src
-COPY tsconfig.json ./
-RUN ls .
+COPY . .
 
 # Build the React app
 RUN npm run build
 
 # Serve the app
 RUN npm install -g serve
-CMD ["/bin/sh", "-c", "serve -s build -l $PORT"]
+CMD ["/bin/sh", "-c", "serve -s dist -l $VITE_FRONTEND_PORT"]
