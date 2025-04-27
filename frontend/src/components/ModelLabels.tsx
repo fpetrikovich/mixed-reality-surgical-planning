@@ -1,8 +1,8 @@
 import { memo } from "react";
-import { ModelAnnotationDto } from "../types";
+import { AnnotationDto } from "../types";
 
 interface ModelAnnotationsProps {
-    annotations: ModelAnnotationDto[];
+    annotations: AnnotationDto[];
 }
 
 export const ModelAnnotations = memo(({annotations}: ModelAnnotationsProps) => {

@@ -4,7 +4,7 @@ export interface ModelDto {
     name: string;
     location: string;
     metadata?: DicomMetadataDto;
-    annotations?: ModelAnnotationDto[];
+    annotations?: AnnotationDto[];
 }
 export interface ModelsDto{
     models: ModelDto[];
@@ -20,11 +20,11 @@ export interface CoordinatesDto {
     y: number;
     z: number;
 }
-export interface ModelAnnotationDto {
+export interface AnnotationDto {
     label: string;
     description: string;
     coordinates: CoordinatesDto;
 }
 export interface ModelAnnotationsDto {
-    annotations: ModelAnnotationDto[];
+    annotations: AnnotationDto[];
 }
