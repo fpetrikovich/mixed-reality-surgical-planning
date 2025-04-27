@@ -37,16 +37,18 @@ export const ViewerLayout = () => {
     return (
         <div className="grid grid-rows-[1fr_auto] h-screen divide-y divide-gray-500">
             <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] divide-x divide-gray-500 overflow-hidden">
-                <Scene>
+                <div className="relative canvas">
+                <Scene >
                     <SceneContext selectedModelLocation={selectedModel?.location} />
                 </Scene>
+                <LoadModelButton onModelSelected={handleModelSelect} />
+                </div>
                 <div className="grid grid-rows divide-y divide-gray-500">
                     <ModelDetail modelId={selectedModel?.id} modelMetadata={modelMetadata} />
                     <ModelAnnotations annotations={modelAnnotations} />
                 </div>
             </div>
             <Instructions />
-            <LoadModelButton onModelSelected={handleModelSelect} />
         </div>
     ); 
 };
