@@ -1,17 +1,17 @@
 import { memo } from "react";
 
-interface SidePanelProps {
+interface ModelDetailProps {
     modelId?: string;
     modelMetadata?: {
         patientId: string;
     };
 }
 
-export const SidePanel = memo(({modelId, modelMetadata}: SidePanelProps) => {
+export const ModelDetail = memo(({modelId, modelMetadata}: ModelDetailProps) => {
     const hasData = modelId && modelMetadata;
     return (
         <div className="bg-gray-800 text-white p-6 overflow-y-auto">
-            <h2 className="text-xl font-bold mb-4">Model Information</h2>
+            <h2 className="text-xl font-bold mb-4">Model Metadata</h2>
             {hasData ? (
                 <ul className="space-y-2">
                     <li><span className="font-semibold">Model ID:</span> {modelId}</li>

@@ -1,58 +1,62 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Html } from '@react-three/drei';
 import { Scene } from './Scene';
-import { Model } from './Model';
 import * as THREE from 'three';
-import { SidePanel } from './SidePanel';
+import { ModelDetail } from './ModelDetail';
+import { Instructions } from './Instructions';
+import { ModelInfo, ModelLabel } from '../types';
+import { ModelLabels } from './ModelLabels';
+import { LoadModelButton } from './LoadModelButton';
+import { Model } from './Model';
 
   
 const ModelOrPlaceholder = ({ selectedModel }: {selectedModel?: string}) => {
     const modelPosition = useMemo(() => new THREE.Vector3(0, 0, 0),[]); 
     console.log("ModelOrPlaceholder", selectedModel);
 
-    if (selectedModel) {
-      return (
+    return selectedModel ? (
         <Model modelPath={selectedModel} isCompressed={false} scale={0.1} position={modelPosition} />
-      );
-    }
-    return (
-      <Html center>
-        <div className="text-white">Select a model to begin...</div>
-      </Html>
+    ) : (
+        <Html center>
+            <div className="text-white">Select a model to begin...</div>
+        </Html>
     );
   };
 
 export const ViewerLayout = () => {
-    const [selectedModel, setSelectedModel] = useState(undefined);
+    const [selectedModelLocation, setSelectedModelLocation] = useState<string | undefined>(undefined);
+    const [labels, setLabels] = useState<ModelLabel[]>([]);
 
+    const handleModelSelect = useCallback((selectedModel: ModelInfo) => {
+            console.log("Model selected:", selectedModel);
+            setSelectedModelLocation(selectedModel.location);
+            setLabels([
+                {
+                    id: '1',
+                    label: 'Label 1',
+                    coordinates: new THREE.Vector3(1, 2, 3),
+                },
+                {
+                    id: '2',
+                    label: 'Label 2',
+                    coordinates: new THREE.Vector3(4, 5, 6),
+                },
+            ]);
+    }, [setSelectedModelLocation, setLabels]);
 
     return (
-        <div className="grid grid-rows-[1fr_auto] h-screen">
-      
-            {/* Top Section: Viewer + Sidebar */}
-            <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] overflow-hidden">
-        
-                {/* 3D Viewer */}
+        <div className="grid grid-rows-[1fr_auto] h-screen divide-y divide-gray-500">
+            <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] divide-x divide-gray-500 overflow-hidden">
                 <Scene>
-                    <ModelOrPlaceholder selectedModel={selectedModel} />
+                    <ModelOrPlaceholder selectedModel={selectedModelLocation} />
                 </Scene>
-        
-                {/* Sidebar */}
-                <SidePanel modelId={selectedModel} modelMetadata={{patientId: "fqjdqw;oidjqw"}} />
-        
+                <div className="grid grid-rows divide-y divide-gray-500">
+                    <ModelDetail modelId={selectedModelLocation} modelMetadata={{patientId: "fqjdqw;oidjqw"}} />
+                    <ModelLabels labels={labels} />
+                </div>
             </div>
-        
-            {/* Instructions */}
-            <div className="bg-gray-900 text-white p-4 text-center">
-                <h3 className="text-lg font-semibold mb-2">Instructions</h3>
-                <p>
-                Use your mouse to rotate the model.<br />
-                Scroll to zoom in and out.<br />
-                Click and drag to move the view.<br />
-                Have fun exploring!
-                </p>
-            </div>
-        
+            <Instructions />
+            <LoadModelButton onModelSelected={handleModelSelect} />
         </div>
     ); 
 };
