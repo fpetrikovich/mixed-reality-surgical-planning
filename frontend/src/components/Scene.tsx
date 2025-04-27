@@ -4,7 +4,7 @@ import { Stats, OrbitControls } from '@react-three/drei'
 
 export const Scene = ({ children }: PropsWithChildren) => {
   return (
-    <Canvas style={{ height: '100vh' }}>
+    <Canvas className='canvas'>
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} />
       {children}
