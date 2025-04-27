@@ -1,10 +1,10 @@
-import { ModelInfo } from "../types";
+import { ModelDto } from "../types";
 
 interface ListModelsModalProps {
     isLoading: boolean;
-    models: ModelInfo[];
+    models: ModelDto[];
     onClose: () => void;
-    onModelSelect: (model: ModelInfo) => void; // Callback when model is selected  
+    onModelSelect: (model: ModelDto) => void; // Callback when model is selected  
 }
 
 export const ListModelsModal = ({isLoading, models, onModelSelect, onClose}: ListModelsModalProps) => {

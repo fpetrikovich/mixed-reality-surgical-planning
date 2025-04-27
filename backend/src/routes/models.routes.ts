@@ -1,10 +1,10 @@
 import {Router} from 'express';
-import { saveModelAnnotations, getModels, getModelMetadata } from '../handlers/models.handler';
+import { saveModelAnnotations, getModels, getModel } from '../controllers/models.controller';
 
 const router = Router();
 
 router.get('/', getModels);
-router.get('/:id/metadata', getModelMetadata);
+router.get('/:id', getModel);
 router.post('/:id/annotations', saveModelAnnotations);
 
 export default router;

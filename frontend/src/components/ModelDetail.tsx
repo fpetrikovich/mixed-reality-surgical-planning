@@ -1,10 +1,9 @@
 import { memo } from "react";
+import { DicomMetadataDto } from "../types";
 
 interface ModelDetailProps {
     modelId?: string;
-    modelMetadata?: {
-        patientId: string;
-    };
+    modelMetadata?: DicomMetadataDto;
 }
 
 export const ModelDetail = memo(({modelId, modelMetadata}: ModelDetailProps) => {
@@ -15,7 +14,7 @@ export const ModelDetail = memo(({modelId, modelMetadata}: ModelDetailProps) => 
             {hasData ? (
                 <ul className="space-y-2">
                     <li><span className="font-semibold">Model ID:</span> {modelId}</li>
-                    <li><span className="font-semibold">Patient ID:</span> {modelMetadata.patientId}</li>
+                    <li><span className="font-semibold">Patient ID:</span> {modelMetadata.patientName}</li>
                 </ul>
             ) : (
                 <p className="text-gray-400">No model selected.</p>

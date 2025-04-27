@@ -9,14 +9,15 @@ export const getModels = (_: Request, response: Response<{models: ModelDto[]}>) 
     response.status(200).json({
         models: Object.values(MODEL_DATA).map((model) => ({
             id: model.id,
+            name: model.name,
             location: model.location,
         })),
     });
 }
 
-export const getModelMetadata = (request: Request<IdParam>, response: Response<DicomMetadataDto>) => {
+export const getModel = (request: Request<IdParam>, response: Response<ModelDto>) => {
     const modelId = request.params.id;
-    response.status(200).json(MODEL_DATA[modelId].metadata);
+    response.status(200).json(MODEL_DATA[modelId]);
 }
 
 export const saveModelAnnotations = (request: Request<IdParam, {}, ModelAnnotationsDto>, response: Response) => {

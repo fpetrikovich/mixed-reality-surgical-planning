@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getSampleDicomMetadata } from '../handlers/dicom.handler';
+import { getSampleDicomMetadata } from '../controllers/dicom.controller';
 
 const router = Router();
 
