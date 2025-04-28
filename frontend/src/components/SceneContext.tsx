@@ -2,18 +2,19 @@ import * as THREE from "three";
 import { memo, useCallback, useEffect, useRef } from "react";
 import { Model } from "./Model";
 import { Html } from "@react-three/drei";
-import { AnnotationDto } from "../types";
 import { useThree } from "@react-three/fiber";
 
 interface SceneContextProps {
     selectedModelLocation?: string;
-    onAnnotationCreation: (annotation: AnnotationDto) => void;
+    setPendingPoint: (annotation?: THREE.Vector3) => void;
+    setPointModalOpen: (open: boolean) => void;
 }
 
-export const SceneContext = memo(({ selectedModelLocation, onAnnotationCreation }: SceneContextProps) => {
+export const SceneContext = memo(({ selectedModelLocation, setPendingPoint, setPointModalOpen }: SceneContextProps) => {
     const { camera, gl: renderer, scene } = useThree();
     const raycaster = useRef(new THREE.Raycaster());
     const mouse = useRef(new THREE.Vector2());
+
 
     const handleClick = useCallback((event: MouseEvent) => {
       // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
@@ -35,22 +36,12 @@ export const SceneContext = memo(({ selectedModelLocation, onAnnotationCreation 
   
       if (intersects.length > 0) {
         const point = intersects[0].point;
-        const label = prompt("Enter a short label for this point:") || "Untitled";
-        const description = prompt("Enter a description for this label:") || "";
   
-        const newAnnotation: AnnotationDto = {
-          label: label,
-          description: description,
-          coordinates: {
-            x: point.x,
-            y: point.y,
-            z: point.z,
-          },
-        };
-  
-        onAnnotationCreation(newAnnotation);
+        setPendingPoint(point);
+        setPointModalOpen(true);
       }
-    }, [onAnnotationCreation, camera, scene, renderer]);
+    }, [camera, scene, renderer]);
+  
   
     useEffect(() => {
       renderer.domElement.addEventListener('click', handleClick);
@@ -58,10 +49,11 @@ export const SceneContext = memo(({ selectedModelLocation, onAnnotationCreation 
     }, [renderer, handleClick]);
 
     return selectedModelLocation ? (
-        <Model modelPath={selectedModelLocation} isCompressed={false} scale={1} />
-    ) : (
-        <Html center>
-            <div className="text-white">Select a model to begin...</div>
-        </Html>
-    );
+                <Model modelPath={selectedModelLocation} isCompressed={false} scale={1} />
+            ) : (
+                <Html center>
+                    <div className="text-white">Select a model to begin...</div>
+                </Html>
+            )
+          
   });
