@@ -20,7 +20,6 @@ export const LoadModelButton = memo(
         .then((res) => res.json())
         .then((data) => {
           const response = data as { models: ModelDto[] };
-          console.log("Models fetched", response.models);
           setModels(response.models);
         })
         .catch((error) => console.error("Failed to fetch models", error))

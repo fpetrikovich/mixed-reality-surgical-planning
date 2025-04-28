@@ -1,26 +1,26 @@
-version: '3.9'
+version: "3.9"
 
 services:
   frontend:
-    build: 
+    build:
       context: ./frontend
       args:
-        FRONTEND_PORT: ${FRONTEND_PORT}
-        BACKEND_PORT: ${BACKEND_PORT}
+        FRONTEND_PORT: ${FRONTEND_PORT:-3000}
+        BACKEND_PORT: ${BACKEND_PORT:-8000}
     ports:
-      - "${FRONTEND_PORT}:${FRONTEND_PORT}"
+      - "${FRONTEND_PORT:-3000}:${FRONTEND_PORT:-3000}"
     depends_on:
       - backend
 
-# RUN with source .env
+  # RUN with source .env
   backend:
     build:
       context: ./backend
       args:
-        BACKEND_PORT: ${BACKEND_PORT}
+        BACKEND_PORT: ${BACKEND_PORT:-8000}
     ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
+      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
     environment:
-      - BACKEND_PORT=${BACKEND_PORT}
-      - FRONTEND_PORT=${FRONTEND_PORT}
+      - BACKEND_PORT=${BACKEND_PORT:-8000}
+      - FRONTEND_PORT=${FRONTEND_PORT:-3000}
       - ENVIRONMENT=production
