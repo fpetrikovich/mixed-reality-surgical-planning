@@ -10,7 +10,6 @@ import { CONFIGURATION } from '../config/constants';
 import { SceneAnnotations } from './SceneAnnotations';
 import { fetchModelAnnotationsFromLocalStorage, saveToLocalStorage } from '../utils/localStorageUtils';
 
-
 export const ViewerLayout = () => {
 
     const [selectedModel, setSelectedModel] = useState<ModelDto | undefined>(undefined);
@@ -33,9 +32,12 @@ export const ViewerLayout = () => {
 
     const onAnnotationCreation = useCallback((annotation: AnnotationDto) => {
         if (!selectedModel) return; // Should error
-        setModelAnnotations((prevAnnotations) => [...prevAnnotations, annotation]);
-        saveToLocalStorage(selectedModel?.id, annotation);
-    }, [selectedModel]);
+        setModelAnnotations((prevAnnotations) => {
+            const updatedAnnotations = [...prevAnnotations, annotation];
+            saveToLocalStorage(selectedModel.id, { annotations: updatedAnnotations });
+            return updatedAnnotations;
+        });
+    }, [selectedModel, modelAnnotations]);
 
     return (
         <div className="grid grid-rows-[1fr_auto] h-screen divide-y divide-gray-500">
