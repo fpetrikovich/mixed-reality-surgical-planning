@@ -1,30 +1,29 @@
-
 export interface ModelDto {
-    id: string;
-    name: string;
-    location: string;
-    metadata?: DicomMetadataDto;
-    annotations?: AnnotationDto[];
+  id: string;
+  name: string;
+  location: string;
+  metadata?: DicomMetadataDto;
+  annotations?: AnnotationDto[];
 }
-export interface ModelsDto{
-    models: ModelDto[];
+export interface ModelsDto {
+  models: ModelDto[];
 }
 export interface DicomMetadataDto {
-    patientName: string;
-    studyDate: Date;
-    modality: string;
-    studyDescription: string;
+  patientName: string;
+  studyDate: Date;
+  modality: string;
+  studyDescription: string;
 }
 export interface CoordinatesDto {
-    x: number;
-    y: number;
-    z: number;
+  x: number;
+  y: number;
+  z: number;
 }
 export interface AnnotationDto {
-    label: string;
-    description: string;
-    coordinates: CoordinatesDto;
+  label: string;
+  description: string;
+  coordinates: CoordinatesDto;
 }
 export interface AnnotationsDto {
-    annotations: AnnotationDto[];
+  annotations: AnnotationDto[];
 }

@@ -1,6 +1,6 @@
-import { memo, PropsWithChildren } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Stats, OrbitControls } from '@react-three/drei'
+import { memo, PropsWithChildren } from "react";
+import { Canvas } from "@react-three/fiber";
+import { Stats, OrbitControls } from "@react-three/drei";
 
 export const Scene = memo(({ children }: PropsWithChildren) => {
   return (
