@@ -1,8 +1,8 @@
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Stats, OrbitControls } from '@react-three/drei'
 
-export const Scene = ({ children }: PropsWithChildren) => {
+export const Scene = memo(({ children }: PropsWithChildren) => {
   return (
     <Canvas>
       <ambientLight intensity={0.5} />
@@ -12,4 +12,4 @@ export const Scene = ({ children }: PropsWithChildren) => {
       <Stats />
     </Canvas>
   );
-};
+});

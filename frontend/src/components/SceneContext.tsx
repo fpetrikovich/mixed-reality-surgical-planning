@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { memo, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { Model } from "./Model";
 import { Html } from "@react-three/drei";
 import { AnnotationDto } from "../types";
@@ -7,15 +7,15 @@ import { useThree } from "@react-three/fiber";
 
 interface SceneContextProps {
     selectedModelLocation?: string;
-    onClickCanvas: (annotation: AnnotationDto) => void;
+    onAnnotationCreation: (annotation: AnnotationDto) => void;
 }
 
-export const SceneContext = memo(({ selectedModelLocation, onClickCanvas }: SceneContextProps) => {
+export const SceneContext = memo(({ selectedModelLocation, onAnnotationCreation }: SceneContextProps) => {
     const { camera, gl: renderer, scene } = useThree();
     const raycaster = useRef(new THREE.Raycaster());
     const mouse = useRef(new THREE.Vector2());
 
-    const handleClick = (event: MouseEvent) => {
+    const handleClick = useCallback((event: MouseEvent) => {
       // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
       const rect = renderer.domElement.getBoundingClientRect();
   
@@ -48,15 +48,14 @@ export const SceneContext = memo(({ selectedModelLocation, onClickCanvas }: Scen
           },
         };
   
-        onClickCanvas(newAnnotation);
+        onAnnotationCreation(newAnnotation);
       }
-    };
+    }, [onAnnotationCreation, camera, scene, renderer]);
   
     useEffect(() => {
-      console.log("Adding click event listener to renderer");
       renderer.domElement.addEventListener('click', handleClick);
       return () => renderer.domElement.removeEventListener('click', handleClick); // Cleanup when unmounting
-    }, [renderer]);
+    }, [renderer, handleClick]);
 
     return selectedModelLocation ? (
         <Model modelPath={selectedModelLocation} isCompressed={false} scale={1} />

@@ -25,6 +25,6 @@ export interface AnnotationDto {
     description: string;
     coordinates: CoordinatesDto;
 }
-export interface ModelAnnotationsDto {
+export interface AnnotationsDto {
     annotations: AnnotationDto[];
 }

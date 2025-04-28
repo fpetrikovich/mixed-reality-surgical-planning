@@ -1,4 +1,4 @@
-import { ModelAnnotationDto } from "./annotation.dto";
+import { AnnotationDto } from "./annotation.dto";
 import { DicomMetadataDto } from "./dicom.dto";
 
 export interface ModelDto {
@@ -6,7 +6,7 @@ export interface ModelDto {
     name: string;
     location: string;
     metadata?: DicomMetadataDto,
-    annotations?: ModelAnnotationDto[];
+    annotations?: AnnotationDto[];
 }
 
 export interface ModelsDto{

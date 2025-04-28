@@ -4,12 +4,12 @@ export interface CoordinatesDto {
     z: number;
 }
 
-export interface ModelAnnotationDto {
+export interface AnnotationDto {
     label: string;
     description: string;
     coordinates: CoordinatesDto;
 }
 
-export interface ModelAnnotationsDto {
-    annotations: ModelAnnotationDto[];
+export interface AnnotationsDto {
+    annotations: AnnotationDto[];
 }
