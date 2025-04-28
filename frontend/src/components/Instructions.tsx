@@ -4,8 +4,8 @@ export const Instructions = () => (
     <p>
       <b>Load:</b> Click on &aposLoad Model&apos; to render a new model.
       <br />
-      <b>Movement:</b> Use your mouse to rotate the model. Scroll to zoom in and
-      out. Click and drag to move the view.
+      <b>Movement:</b> Left click and drag to rotate the model. Scroll to zoom
+      in and out. Right click and drag to move the view.
       <br />
       <b>Labeling:</b> Click on the label icon at the top right of the viewer to
       label the model. Labels will appear on the right.

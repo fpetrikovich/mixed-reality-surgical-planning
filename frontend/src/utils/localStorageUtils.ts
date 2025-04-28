@@ -18,6 +18,5 @@ export const fetchFromLocalStorage = <T>(key: string, defaultValue: T): T => {
 };
 
 export const saveToLocalStorage = <T>(key: string, value: T): void => {
-  console.log("Saving to local storage", JSON.stringify(value));
   localStorage.setItem(key, JSON.stringify(value));
 };

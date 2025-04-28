@@ -45,10 +45,8 @@ const RawModel = ({ modelPath, isCompressed, scale }: ModelProps) => {
   return <primitive object={scene} scale={scale ?? 1} />;
 };
 
-export const Model = memo((props: ModelProps) => {
-  return (
-    <Suspense fallback={<Fallback />}>
-      <RawModel {...props} />
-    </Suspense>
-  );
-});
+export const Model = memo((props: ModelProps) => (
+  <Suspense fallback={<Fallback />}>
+    <RawModel {...props} />
+  </Suspense>
+));

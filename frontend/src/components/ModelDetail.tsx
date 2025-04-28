@@ -10,7 +10,6 @@ interface ModelDetailProps {
 export const ModelDetail = memo(
   ({ modelId, modelMetadata }: ModelDetailProps) => {
     const hasData = modelId && modelMetadata;
-    console.log(modelMetadata?.studyDate);
     return (
       <div className="bg-gray-800 text-white p-6 overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">Model Metadata</h2>
