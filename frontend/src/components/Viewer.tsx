@@ -14,6 +14,7 @@ import {
   saveToLocalStorage,
 } from "../utils/localStorageUtils";
 import { AnnotationModal } from "./AnnotationModal";
+import { EnableAnnotationsButton } from "./EnableAnnotationsButton";
 
 export const ViewerLayout = () => {
   const [selectedModel, setSelectedModel] = useState<ModelDto | undefined>(
@@ -27,6 +28,7 @@ export const ViewerLayout = () => {
   const [pendingPoint, setPendingPoint] = useState<THREE.Vector3 | undefined>(
     undefined
   );
+  const [enabledAnnotations, setEnabledAnnotations] = useState(false);
 
   useEffect(() => {
     // Do not fetch model info if it is not selected
@@ -87,11 +89,17 @@ export const ViewerLayout = () => {
           <Scene>
             <SceneContext
               selectedModelLocation={selectedModel?.location}
+              selectedModelIsCompressed={selectedModel?.isCompressed}
               setPendingPoint={setPendingPoint}
               setPointModalOpen={setAnnotationModalOpen}
+              annotationsEnabled={enabledAnnotations}
             />
             <SceneAnnotations annotations={modelAnnotations} />
           </Scene>
+          <EnableAnnotationsButton
+            enabled={enabledAnnotations}
+            onClick={setEnabledAnnotations}
+          />
           <LoadModelButton onModelSelected={setSelectedModel} />
         </div>
         <div className="grid grid-rows divide-y divide-gray-500">

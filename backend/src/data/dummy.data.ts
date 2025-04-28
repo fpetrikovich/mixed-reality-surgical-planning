@@ -5,37 +5,20 @@ export const MODEL_DATA: { [key: string]: ModelDto } = {
     id: "1",
     name: "Lantern",
     location: "/Lantern.glb",
+    isCompressed: false,
     metadata: {
       patientName: "John Doe",
       studyDate: new Date("2023-10-01"),
       modality: "CT",
       studyDescription: "Sample CT Scan",
     },
-    annotations: [
-      {
-        label: "Annotation1",
-        description: "Sample annotation 1",
-        coordinates: {
-          x: 1,
-          y: 2,
-          z: 3,
-        },
-      },
-      {
-        label: "Annotation2",
-        description: "Sample annotation 2",
-        coordinates: {
-          x: 4,
-          y: 5,
-          z: 6,
-        },
-      },
-    ],
+    annotations: [],
   },
   "2": {
     id: "2",
-    name: "Lantern2",
-    location: "/Lantern.glb",
+    name: "Brain",
+    location: "/Brain.glb",
+    isCompressed: false,
     metadata: {
       patientName: "Jane Smith",
       studyDate: new Date("2025-01-02"),
@@ -45,8 +28,21 @@ export const MODEL_DATA: { [key: string]: ModelDto } = {
   },
   "3": {
     id: "3",
-    name: "Lantern3",
-    location: "https://example.com/model3",
+    name: "Baby Robot",
+    location: "/BabyRobot.glb",
+    isCompressed: false,
+    metadata: {
+      patientName: "Alice Johnson",
+      studyDate: new Date("2024-10-03"),
+      modality: "X-ray",
+      studyDescription: "Sample X-ray Scan",
+    },
+  },
+  "4": {
+    id: "4",
+    name: "Security X-Ray Scanner",
+    location: "SecurityXRay.glb",
+    isCompressed: false,
     metadata: {
       patientName: "Alice Johnson",
       studyDate: new Date("2024-10-03"),

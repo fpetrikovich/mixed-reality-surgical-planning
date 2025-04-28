@@ -6,15 +6,19 @@ import { useThree } from "@react-three/fiber";
 
 interface SceneContextProps {
   selectedModelLocation?: string;
+  selectedModelIsCompressed?: boolean;
   setPendingPoint: (annotation?: THREE.Vector3) => void;
   setPointModalOpen: (open: boolean) => void;
+  annotationsEnabled: boolean;
 }
 
 export const SceneContext = memo(
   ({
     selectedModelLocation,
+    selectedModelIsCompressed,
     setPendingPoint,
     setPointModalOpen,
+    annotationsEnabled,
   }: SceneContextProps) => {
     const { camera, gl: renderer, scene } = useThree();
     const raycaster = useRef(new THREE.Raycaster());
@@ -22,6 +26,7 @@ export const SceneContext = memo(
 
     const handleClick = useCallback(
       (event: MouseEvent) => {
+        if (!annotationsEnabled) return;
         // Returns a DOMRect object providing information about the size of an element and its position relative to the viewport.
         const rect = renderer.domElement.getBoundingClientRect();
 
@@ -49,7 +54,7 @@ export const SceneContext = memo(
           setPointModalOpen(true);
         }
       },
-      [camera, scene, renderer]
+      [camera, scene, renderer, annotationsEnabled]
     );
 
     useEffect(() => {
@@ -59,7 +64,11 @@ export const SceneContext = memo(
     }, [renderer, handleClick]);
 
     return selectedModelLocation ? (
-      <Model modelPath={selectedModelLocation} isCompressed={false} scale={1} />
+      <Model
+        modelPath={selectedModelLocation}
+        isCompressed={selectedModelIsCompressed ?? false}
+        scale={1}
+      />
     ) : (
       <Html center>
         <div className="text-white">Select a model to begin...</div>

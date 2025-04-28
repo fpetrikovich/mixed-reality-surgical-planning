@@ -5,6 +5,7 @@ export interface ModelDto {
   id: string;
   name: string;
   location: string;
+  isCompressed?: boolean;
   metadata?: DicomMetadataDto;
   annotations?: AnnotationDto[];
 }
